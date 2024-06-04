@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-3">
+    <h2>Order Product: {{ product.description }}</h2>
+    <img id="productImage" src="" alt="Product Image" class="img-fluid mb-3">
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_quantity">Quantity:</label>
+            {{ form.quantity.errors }}
+            {{ form.quantity }}
+        </div>
+        <div class="form-group">
+            <label for="id_address">Delivery Address:</label>
+            {{ form.address.errors }}
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            <label for="id_ups_account_name">UPS Account Name (optional):</label>
+            {{ form.ups_account_name.errors }}
+            {{ form.ups_account_name }}
+        </div>
+        <div class="form-group">
+            <label for="id_eco_friendly">{{ form.eco_friendly.label }}</label>
+            {{ form.eco_friendly.errors }}
+            {{ form.eco_friendly }}
+            <h4>Choose Eco-Friendly packaging for 3 times to unlock a secret badge</h4>
+        </div>
+        <button type="submit" class="btn btn-primary">Place Order</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var productId = {{ product.id }};
+        var productImage = document.getElementById('productImage');
+        productImage.src = `{% static 'images/product_' %}${productId}.jpg`;
+        productImage.alt = '{{ product.category }}';
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

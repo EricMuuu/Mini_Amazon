@@ -1,0 +1,11 @@
+April 11: Our IG proto was done
+
+April 14: We have started frontend development using Django and Postgres Database. And we decided to also use python for backend development.
+
+April 18: We finished all the required functionalities of front end and we scheduled IG meetings to start testing our backend across Amazon and UPS.
+
+April 20: We added additional functionalities to differentiate our product with the rest of our class.
+
+April 23: We were struggling with python multi-threading using thread pool at the beginning. We realized if we only use an automatically managed thread pool, the behaviors might be unpredicted. So we changed our multi-threading strategy.
+
+April 25: The token we obtained from Gmail API will expire in a period of time. So functions that are related to sending emails might not work correctly in the future if we do not renew the token.json file.

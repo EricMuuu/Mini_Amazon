@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-3">
+    <h1>Product Catalog</h1>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <form class="form-inline" method="get" action="">
+                <input type="text" class="form-control mb-2 mr-sm-2" name="search" placeholder="Search by category">
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-2 ml-2">Back to Dashboard</a>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img class="product-image" data-id="{{ product.id }}" alt="{{ product.category }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.category }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <a href="{% url 'order_product' product.id %}" class="btn btn-primary">Order This Product</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>No products found. Please adjust your search criteria and try again.</p>
+        </div>
+        {% endfor %}        
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const images = document.querySelectorAll('.product-image');
+    images.forEach(image => {
+        const productId = image.dataset.id;
+        image.src = `{% static 'images/product_' %}` + productId + '.jpg';
+    });
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

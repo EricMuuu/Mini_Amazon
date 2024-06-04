@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-3">
+    <h1>Track Your Order</h1>
+    <div class="row">
+        <div class="col-12 mb-3">
+            <form class="form-inline" method="post" action="{% url 'track_order' %}">
+                {% csrf_token %}
+                <input type="text" class="form-control mb-2 mr-sm-2" name="tracking_number" placeholder="Enter Tracking Number" required>
+                <button type="submit" class="btn btn-primary mb-2">Track Order</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary mb-2 ml-2">Back to Dashboard</a>
+            </form>
+            {% if error_message %}
+            <div class="alert alert-danger mt-2">
+                {{ error_message }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

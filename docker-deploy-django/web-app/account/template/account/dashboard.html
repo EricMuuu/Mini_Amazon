@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {% load static %}
+</head>
+<body>
+
+<div class="container-fluid">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-12 my-3">
+            <div class="jumbotron">
+                <h1 class="display-4">Welcome, {{ user_profile.user.username }}!</h1>
+                <p class="lead">Thank you for choosing Amazon</p>
+                <form method="post" action="{% url 'logout' %}">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
+                <a href="{% url 'edit_user_profile' %}" class="btn btn-secondary">Edit Profile</a>
+                <a href="{% url 'add_address' %}" class="btn btn-info">Add Address</a>
+                <a href="{% url 'product_catalog' %}" class="btn btn-primary">Start Shopping</a>
+                <a href="{% url 'track_order' %}" class="btn btn-primary">Track An Order</a>
+                <a href="{% url 'order_list' %}" class="btn btn-primary">Your Orders</a>
+            </div>
+        </div>
+    </div>
+    {% if user_profile.environment_tracker >= 3 %}
+    <div class="row">
+        <div class="col-md-12 text-center my-3">
+            <img src="{% static 'images/Earth_Saver.jpg' %}" alt="Earth Saver Award" class="img-fluid">
+            <p class="lead">Congratulations on being an Earth Saver!</p>
+        </div>
+    </div>
+{% endif %}
+</div>
+
+<!-- Include Bootstrap JS and its dependencies -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

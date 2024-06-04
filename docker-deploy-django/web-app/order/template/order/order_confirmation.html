@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Order Confirmation</h1>
+    <div class="card">
+        <div class="card-header">
+            Thank you for your order, {{ order.buyer.user.username }}!
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Order Details</h5>
+            <p class="card-text"><strong>Tracking Number:</strong> {{ order.id }}</p>
+            <p class="card-text"><strong>Product:</strong> {{ order.product.description }}</p>
+            <p class="card-text"><strong>Quantity:</strong> {{ order.quantity }}</p>
+            <p class="card-text"><strong>Status:</strong> {{ order.status }}</p>
+            <p class="card-text"><strong>Delivery Address:</strong> ({{ order.address_x }}, {{ order.address_y }})
+            <p class="card-text"><strong>UPS Account Name:</strong> {{ order.ups_account_name }}</p>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

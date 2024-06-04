@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      TZ: UTC
+    volumes:
+      - type: volume
+        source: data-volume
+        target: /var/lib/postgresql/data
+
+  web-init:
+    build: ./web-app
+    command: ["sh", "/code/initserver.sh"]
+    volumes:
+      - type: bind
+        source: ./web-app
+        target: /code
+    depends_on:
+      - db
+
+  web:
+    build: ./web-app
+    command: /code/runserver.sh
+    volumes:
+      - type: bind
+        source: ./web-app
+        target: /code
+    expose:
+      - "8000"
+    depends_on:
+      - web-init
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./nginx/config
+        target: /etc/nginx/conf.d
+    depends_on:
+      - web
+
+volumes:
+  data-volume:
